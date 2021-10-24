@@ -101,12 +101,13 @@ const revalidarToken = async (req, res = response ) => {
     const token = await generarJWT( uid, name );
 
     // Obtener información del usuario, y remover el password
-    const { password, ...user} = await Usuario.findById( uid );
-
+    const user = await Usuario.findById( uid );
+    
     res.json({
         ok: true,
         token,
-        user
+        uid,
+        name: user.name,
     })
 }
 
